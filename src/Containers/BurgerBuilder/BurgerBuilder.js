@@ -21,13 +21,13 @@ class BurgerBuilder extends Component {
     };
 
     componentDidMount() {
-      /* axios.get('https://react-burger-builder-bdac0.firebaseio.com/ingredients.json')
+      axios.get('https://react-burger-builder-bdac0.firebaseio.com/ingredients.json')
             .then(response => {
                 this.setState({ ingredients: response.data })
             })
             .catch(error=>{
                 this.setState({error:true})
-            })*/
+            })  
     }
 
     /*opens the modal*/
