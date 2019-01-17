@@ -22,7 +22,7 @@ const input = (props) => {
             </select>);
             break;
         default:
-            inputElement = <input className={inputClasses.join(' ')} {...props.elementConfig} value={props.value} />
+            inputElement = <input className={inputClasses.join(' ')} {...props.elementConfig} value={props.value} onChange={props.changed}/>
     }
 
     let validationError = null;
