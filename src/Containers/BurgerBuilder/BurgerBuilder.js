@@ -4,11 +4,11 @@ import Burger from '../../Components/Burger/Burger';
 import BuildControls from '../../Components/Burger/BuildControls/BuildControls';
 import Modal from '../../Components/UI/Modal/Modal';
 import OrderSummary from '../../Components/Burger/OrderSummary/OrderSummary';
-import axios from '../../../src/axios-orders';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as burgerBuilderActionCreators from '../../store/actions/index';
 import {connect} from 'react-redux';
+import axios from '../../axios-orders';
 
 
 
@@ -16,18 +16,10 @@ import {connect} from 'react-redux';
 class BurgerBuilder extends Component {
     state = {
         purchasing: false,
-        loading: false,
-        error: false
     };
 
     componentDidMount() {
-      axios.get('https://react-burger-builder-bdac0.firebaseio.com/ingredients.json')
-            .then(response => {
-                this.setState({ ingredients: response.data })
-            })
-            .catch(error=>{
-                this.setState({error:true})
-            })  
+        this.props.onInitIngredients();
     }
 
     /*opens the modal*/
@@ -65,7 +57,7 @@ class BurgerBuilder extends Component {
         }
         
 
-        let burger = this.state.error?<p>Ingredients cannot be loaded</p>:<Spinner/> 
+        let burger = this.props.error?<p>Ingredients cannot be loaded</p>:<Spinner/> 
         let orderSummary=null;
         console.log(this.props.ings)
         if(this.props.ings){
@@ -103,14 +95,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps=state=>{
     return{
         ings:state.ingredients,
-        totPrice: state.totalPrice
+        totPrice: state.totalPrice,
+        error:state.error
     }
 }
 
 const mapDispatchToProps=dispatch=>{
     return{
         addIngredient:(ingName)=>dispatch(burgerBuilderActionCreators.addIngredient(ingName)),
-        removeIngredient:(ingName)=>dispatch(burgerBuilderActionCreators.removeIngredient(ingName))
+        removeIngredient:(ingName)=>dispatch(burgerBuilderActionCreators.removeIngredient(ingName)),
+        onInitIngredients:()=>dispatch(burgerBuilderActionCreators.initIngredients())
     }
 }
 
