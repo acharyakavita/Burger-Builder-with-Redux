@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Input from '../../Components/UI/Input/Input';
 import Button from '../../Components/UI/Button/Button';
-import Classes from './auth.css'
+import Classes from './auth.css';
+import * as actions from '../../store/actions/index';
+import {connect} from 'react-redux';
 
 class Auth extends Component {
     state = {
@@ -106,13 +108,19 @@ class Auth extends Component {
         })
         return (
             <div className={Classes.Auth}>
-                <form>
-                    {form}
+                <form onSubmit={this.submitHandler}>
+                    {form }
                     <Button btnType="Success">SUBMIT</Button>
                 </form>
             </div>
         )
+    } 
+}
+
+const mapDispatchToProps=dispatch=>{
+    return{
+        onAuth:(email,password)=>dispatch(actions.auth(email,password))
     }
 }
 
-export default Auth;
+export default connect(null,mapDispatchToProps)(Auth);
