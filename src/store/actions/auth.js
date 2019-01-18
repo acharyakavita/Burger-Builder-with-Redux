@@ -52,3 +52,10 @@ export const auth=(email,password,isSignUp)=>{
         .catch(error=>{dispatch(authFail(error.response.data.error.message))})
     }
 }
+
+export const setAuthRedirect=(path)=>{
+    return {
+        type:actionTypes.SET_AUTH_REDIRECT,
+        path:path
+    }
+}

@@ -11,16 +11,18 @@ const controls = [
 
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
-    <p>Current Price : <strong>{props.price.toFixed(2)}</strong> $</p>
+        <p>Current Price : <strong>{props.price.toFixed(2)}</strong> $</p>
         {controls.map(ctrl =>
             <BuildControl
-                more={()=>props.ingredientAdded(ctrl.type)}
-                less={()=>props.ingredientRemoved(ctrl.type)}
+                more={() => props.ingredientAdded(ctrl.type)}
+                less={() => props.ingredientRemoved(ctrl.type)}
                 key={ctrl.label}
                 label={ctrl.label}
-                disable={props.disabled[ctrl.type]}/>
+                disable={props.disabled[ctrl.type]} />
         )}
-        <button  className={classes.OrderButton} onClick={props.click} disabled={!props.purchaseable}>ORDER NOW</button>
+        <button className={classes.OrderButton} onClick={props.click} disabled={!props.purchaseable}>
+            {props.isAuth ? 'ORDER NOW' : 'SIGN UP TO ORDER'}
+        </button>
     </div>
 
 )
