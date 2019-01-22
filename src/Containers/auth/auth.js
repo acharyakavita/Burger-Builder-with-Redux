@@ -73,6 +73,7 @@ class Auth extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
+        console.log(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignUp)
         this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignUp);
     }
 
@@ -119,7 +120,7 @@ class Auth extends Component {
                     <Button btnType="Success">SUBMIT</Button>
                 </form>
                 <Button btnType="Danger" clicked={this.switchAuthModeHandler}>
-                    SWITCH To {this.state.isSignUp ? 'SIGNIN' : 'SIGNUP'}</Button>
+                    {this.state.isSignUp ? 'ALREADY A USER? SIGNIN' : 'NEW USER? SIGNUP'}</Button>
             </div>
         )
     }
@@ -128,7 +129,7 @@ class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password) => dispatch(actions.auth(email, password)),
+        onAuth: (email, password,isSignUp) => dispatch(actions.auth(email, password,isSignUp)),
         onSetAuthRedirect:()=>dispatch(actions.setAuthRedirect('/'))
     }
 }
